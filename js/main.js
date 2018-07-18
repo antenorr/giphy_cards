@@ -3,12 +3,9 @@
 let submitButton = document.getElementById("submit-button");
 submitButton.addEventListener("click", (e) => {
     e.preventDefault();
-    // console.log("Clicked");
-    // console.log(e);
 
 
     // Gather the users input for a request celebrity
-
     let userRequestQuery = () => {
         let userInput = document.querySelector("#user-input").value;
         //console.log(userInput)
@@ -42,7 +39,54 @@ submitButton.addEventListener("click", (e) => {
             giphyInputs.appendChild(cardDiv);
 
         }
+
     }
+    // This button creates a clear button to reset the application
+    let createClearButton = () => {
+        let clearButton = document.createElement("button");
+        clearButton.setAttribute("type", "submit");
+        clearButton.className = "btn btn-primary clear-all";
+        clearButton.textContent = "Reset fields";
+        document.querySelector("form").insertBefore(clearButton, document.querySelector("#submit-button").nextSibling);
+    }
+
+    // parentDiv.insertBefore(nodeToInsert, nodeToInsertAfter.nextSibling);
+
+    // This function simply causes the sumbit button to be disabled
+    let disableQueryButton = () => {
+        let myQueryButton = document.querySelector("#submit-button");
+        myQueryButton.disabled = true;
+    };
+    
+    
+    // This function will reinstate original button and it's functionality and delete reset button
+    let reinstateOriginalButton = () => {
+        let myQueryButton = document.querySelector("#submit-button");
+        myQueryButton.disabled = false;
+
+    }
+
+
+    // This function clears all content and resets the form
+    let resetPage = () => {
+        let clearButton = document.querySelector(".clear-all");
+        clearButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            let dynamicContentArea = document.querySelector(".giphy-inputs");
+            dynamicContentArea.innerHTML = "";
+            let inputField = document.querySelector("form");
+            inputField.reset();
+            let queryFeedback = document.querySelector("#query-feedback");
+            queryFeedback.textContent = "Please enter the name of your favorite celebrity.";
+            reinstateOriginalButton();
+    
+            
+        })
+    }
+    
+
+
+
 
 
     fetch(testUrl)
@@ -54,17 +98,13 @@ submitButton.addEventListener("click", (e) => {
         let queryFeedback = document.querySelector("#query-feedback");
         queryFeedback.textContent = (  (myJson.meta.status === 200) && (myJson.data.length !== 0)  ) ? `Enjoy your Giphyies of ${userRequestQuery()}!` : `Sorry please try a different search`;
         updateDisplay(myJson);
+        createClearButton();
+        disableQueryButton();
+        resetPage();
+        
+       
 
     });
 
-
-
-
-
-
-
-
-
-
-    //updateDisplay();
+    
 })
