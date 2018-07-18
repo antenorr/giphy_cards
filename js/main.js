@@ -8,7 +8,6 @@ submitButton.addEventListener("click", (e) => {
     // Gather the users input for a request celebrity
     let userRequestQuery = () => {
         let userInput = document.querySelector("#user-input").value;
-        //console.log(userInput)
         return userInput;
     }
         
@@ -41,16 +40,16 @@ submitButton.addEventListener("click", (e) => {
         }
 
     }
-    // This button creates a clear button to reset the application
+    // This function creates a clear button to reset the application
     let createClearButton = () => {
         let clearButton = document.createElement("button");
         clearButton.setAttribute("type", "submit");
-        clearButton.className = "btn btn-primary clear-all";
+        clearButton.className = "btn btn-warning clear-all";
         clearButton.textContent = "Reset fields";
         document.querySelector("form").insertBefore(clearButton, document.querySelector("#submit-button").nextSibling);
     }
 
-    // parentDiv.insertBefore(nodeToInsert, nodeToInsertAfter.nextSibling);
+
 
     // This function simply causes the sumbit button to be disabled
     let disableQueryButton = () => {
@@ -63,6 +62,12 @@ submitButton.addEventListener("click", (e) => {
     let reinstateOriginalButton = () => {
         let myQueryButton = document.querySelector("#submit-button");
         myQueryButton.disabled = false;
+
+        // now let's delete the reset button from the dom
+        let clearButton = document.querySelector(".clear-all");
+        let containingBody = clearButton.parentNode;
+        containingBody.removeChild(clearButton);
+
 
     }
 
@@ -79,13 +84,16 @@ submitButton.addEventListener("click", (e) => {
             let queryFeedback = document.querySelector("#query-feedback");
             queryFeedback.textContent = "Please enter the name of your favorite celebrity.";
             reinstateOriginalButton();
-    
+
             
         })
     }
     
-
-
+    // In below fetch call i changed the query feed back in it 
+    // i then updated the dynamic section fo the page 
+    // i then created and set into motion the clearbutton to reset the app 
+    // I then disabled that button so that no more querries would flood the page 
+    // Finally i reset the app without a hard reload so that user may continue searching for GIFS
 
 
 
@@ -96,15 +104,14 @@ submitButton.addEventListener("click", (e) => {
     .then((myJson) => {
         console.log(myJson);
         let queryFeedback = document.querySelector("#query-feedback");
-        queryFeedback.textContent = (  (myJson.meta.status === 200) && (myJson.data.length !== 0)  ) ? `Enjoy your Giphyies of ${userRequestQuery()}!` : `Sorry please try a different search`;
+        queryFeedback.textContent = ((myJson.meta.status === 200) && (myJson.data.length !== 0)) ? `Enjoy your Giphyies of ${userRequestQuery().charAt(0).toUpperCase() + userRequestQuery().substr(1)}!` : `Sorry please try a different search`;
         updateDisplay(myJson);
         createClearButton();
         disableQueryButton();
         resetPage();
-        
-       
-
     });
-
-    
 })
+
+
+    // This code below to be used for insertafter in future projects :
+    //  parentDiv.insertBefore(nodeToInsert, nodeToInsertAfter.nextSibling);

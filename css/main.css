@@ -1,8 +1,4 @@
-/* .giphy-inputs {
- 
-    width: 300px;
- 
-} */
+
 
 .card {
     margin: 20px;
@@ -14,4 +10,8 @@
 .card-img-top {
     height: 15rem;
     object-fit: cover;
+}
+
+.clear-all {
+    margin-left: 20px;
 }
