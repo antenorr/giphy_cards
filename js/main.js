@@ -11,7 +11,7 @@ submitButton.addEventListener("click", (e) => {
         return userInput;
     }
         
-
+    // API key given by Giphy
     testUrl = `https://api.giphy.com/v1/gifs/search?api_key=f5Ta7EWUg2aEG510IWtL681MvgHXoa1v&q=${userRequestQuery()}&limit=5&offset=0&rating=G&lang=en`
    
     // Code source to grap data from the json and display it in the DOM
@@ -38,8 +38,8 @@ submitButton.addEventListener("click", (e) => {
             giphyInputs.appendChild(cardDiv);
 
         }
-
     }
+
     // This function creates a clear button to reset the application
     let createClearButton = () => {
         let clearButton = document.createElement("button");
@@ -89,6 +89,7 @@ submitButton.addEventListener("click", (e) => {
         })
     }
     
+    // This entire application wriiten in Javascript - Challenge: Avoid JQuery library payload!
     // In below fetch call i changed the query feed back in it 
     // i then updated the dynamic section fo the page 
     // i then created and set into motion the clearbutton to reset the app 
@@ -96,7 +97,7 @@ submitButton.addEventListener("click", (e) => {
     // Finally i reset the app without a hard reload so that user may continue searching for GIFS
 
 
-
+    // Use of the Javascript fetch API as oppose to Jquery's $.ajax();
     fetch(testUrl)
     .then((res) => {
         return res.json();
